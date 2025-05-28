@@ -9,6 +9,8 @@ There are two common ways to measure Weekly Active Users:
 2. **Rolling 7-day WAU:** Counts unique users active in the past 7 days, updated every day, giving a better view of engagement.  
 
 Since the challenge did not specify the WAU type, I first implemented the rolling 7-day WAU query for more accurate insights, then I converted it to compute the calendar WAU.
+I created a `dates` table with every day in 2025 to make sure the WAU results cover all dates, including those with no events, and to help calculate the 7-day rolling user activity for each date.
+
 
 ### Assumption on Purchase Quantity
 There is no quantity column in the events table, so I assumed each purchase event equals buying one piece of the product.
