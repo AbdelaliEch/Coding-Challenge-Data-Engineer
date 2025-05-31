@@ -1,0 +1,7 @@
+psycopg2
+sqlalchemy
+pandas
+matplotlib
+elasticsearch
+sentence_transformers
+sklearn.cluster

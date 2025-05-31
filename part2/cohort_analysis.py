@@ -19,7 +19,7 @@ except Exception as e:
     exit(1)
 
 # Import the SQL long query from the sql file
-with open('query.sql', 'r') as f:
+with open('cohort_analysis.sql', 'r') as f:
     query = f.read()
 
 # Load the sql query results into pandas dataframe

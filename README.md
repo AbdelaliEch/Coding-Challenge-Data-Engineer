@@ -7,17 +7,32 @@ The goal was to improve database performance, understand retention and behavior 
 
 ---
 
-## Contents
+## Project structure
 
-- `docker-compose.yml`  
-  Docker setup to run PostgreSQL and pgAdmin for easy database management.
+- `README.md` — Project overview and structure.  
 
-- `populate_database.sql`  
-  SQL script to create and fill users, products, and events tables with 12 months of related e-commerce data.
+- `strategy.md` — One-page document explaining optimizations, retention insights, and segmentation rationale.  
+
+- `requirements.txt` — Python dependencies for all scripts.  
+
+- `docker-compose.yaml` — Docker setup to run PostgreSQL and pgAdmin for easy database management for Part1 and 2.
+
+- `populate_database.sql` —  SQL script to create and fill users, products, and events tables with 12 months of related e-commerce data.
+
+- `command.txt` — Docker command to run a local Elasticsearch container for Part3.
 
 - `part1/`  
-  - `queries.sql` — SQL queries for Part I.  
-  - `script.py` — Python script to execute the SQL queries and benchmark performance.  
-  - `report.md` — Summary of bottlenecks and optimizations, and important clarifications.
+  - `optimized_queries.sql` — Optimized SQL queries for weekly active users and revenue per category.   
+  - `benchmark_queries.py` — Python script to execute the SQL queries and benchmark performance before and after optimization.  
+  - `report.md` — Important clarifications and summary of bottlenecks and optimizations. 
+
+- `part2/`  
+  - `cohort_analysis.sql` — SQL query to generate weekly retention matrix by monthly cohorts.  
+  - `cohort_analysis.py` — Python script to execute the SQL query and visualize the retention matrix.  
+  - `cohort_plot.png` — Retention visualization output.
+
+- `part3/`  
+  - `populating_elastic_data.py` — Script to insert mock data from `mock_data.json` into Elasticsearch.  
+  - `user_segmentation_pipeline.py` — Main pipeline script of Part3.  
 
 ---
