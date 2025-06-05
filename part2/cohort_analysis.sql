@@ -65,14 +65,14 @@ cte2 AS (
 cte3 AS (
 	SELECT
 		signup_month,
-		COUNT(DISTINCT CASE WHEN is_week1_active = 1 THEN user_id END) AS week1_active_users,
-		COUNT(DISTINCT CASE WHEN is_week2_active = 1 THEN user_id END) AS week2_active_users,
-		COUNT(DISTINCT CASE WHEN is_week3_active = 1 THEN user_id END) AS week3_active_users,
-		COUNT(DISTINCT CASE WHEN is_week4_active = 1 THEN user_id END) AS week4_active_users,
-		COUNT(DISTINCT CASE WHEN is_week5_active = 1 THEN user_id END) AS week5_active_users,
-		COUNT(DISTINCT CASE WHEN is_week6_active = 1 THEN user_id END) AS week6_active_users,
-		COUNT(DISTINCT CASE WHEN is_week7_active = 1 THEN user_id END) AS week7_active_users,
-		COUNT(DISTINCT CASE WHEN is_week8_active = 1 THEN user_id END) AS week8_active_users
+		SUM(is_week1_active) AS week1_active_users,
+		SUM(is_week2_active) AS week2_active_users,
+		SUM(is_week3_active) AS week3_active_users,
+		SUM(is_week4_active) AS week4_active_users,
+		SUM(is_week5_active) AS week5_active_users,
+		SUM(is_week6_active) AS week6_active_users,
+		SUM(is_week7_active) AS week7_active_users,
+		SUM(is_week8_active) AS week8_active_users
 	FROM cte2 
 	GROUP BY signup_month
 ), 
@@ -86,15 +86,15 @@ cohorts AS (
 )
 -- Dividing active users by total users to get the weekly retention percentage for each cohort month 
 SELECT 
-	cohort_month::date,
-	ROUND((week1_active_users::numeric/total_users_count)*100,2) AS week1_retention_rate,
-	ROUND((week2_active_users::numeric/total_users_count)*100,2) AS week2_retention_rate,
-	ROUND((week3_active_users::numeric/total_users_count)*100,2) AS week3_retention_rate,
-	ROUND((week4_active_users::numeric/total_users_count)*100,2) AS week4_retention_rate,
-	ROUND((week5_active_users::numeric/total_users_count)*100,2) AS week5_retention_rate,
-	ROUND((week6_active_users::numeric/total_users_count)*100,2) AS week6_retention_rate,
-	ROUND((week7_active_users::numeric/total_users_count)*100,2) AS week7_retention_rate,
-	ROUND((week8_active_users::numeric/total_users_count)*100,2) AS week8_retention_rate 
+	cohort_month::date AS "Cohort Month",
+	ROUND((week1_active_users::numeric/total_users_count)*100,2) AS Week1,
+	ROUND((week2_active_users::numeric/total_users_count)*100,2) AS Week2,
+	ROUND((week3_active_users::numeric/total_users_count)*100,2) AS Week3,
+	ROUND((week4_active_users::numeric/total_users_count)*100,2) AS Week4,
+	ROUND((week5_active_users::numeric/total_users_count)*100,2) AS Week5,
+	ROUND((week6_active_users::numeric/total_users_count)*100,2) AS Week6,
+	ROUND((week7_active_users::numeric/total_users_count)*100,2) AS Week7,
+	ROUND((week8_active_users::numeric/total_users_count)*100,2) AS Week8 
 FROM cte3
 JOIN cohorts ON cte3.signup_month = cohorts.cohort_month
 ORDER BY cohort_month;
